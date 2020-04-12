@@ -1,13 +1,47 @@
 {
-  "pages":[
-    "pages/index/index",
-    "pages/logs/logs"
+  "pages": [
+    "pages/homepage/index",
+    "pages/classification/index",
+    "pages/shoppingcart/index",
+    "pages/mine/index"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#f0145a",
+    "navigationBarTitleText": "作业-Bookstore",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#858585",
+    "selectedColor": "#f0145a",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/homepage/index",
+        "iconPath": "images/tarbar/homepage.png",
+        "selectedIconPath": "images/tarbar/homepage_select.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/classification/index",
+        "iconPath": "images/tarbar/classification.png",
+        "selectedIconPath": "images/tarbar/classification_select.png",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/shoppingcart/index",
+        "iconPath": "images/tarbar/shoppingcart.png",
+        "selectedIconPath": "images/tarbar/shoppingcart_select.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "iconPath": "images/tarbar/mine.png",
+        "selectedIconPath": "images/tarbar/mine_select.png",
+        "text": "我的"
+      }
+    ]
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
