@@ -14,7 +14,9 @@
     "pages/admin/orderList/orderList",
     "pages/admin/orderMoney/orderMoney",
     "pages/admin/orderSearch/orderSearch",
-    "pages/admin/orderGraph/orderGraph"
+    "pages/admin/orderGraph/orderGraph",
+    "pages/user/myAddress/myAddress",
+    "pages/user/myAddressList/myAddressList"
   ],
   "window": {
     "backgroundTextStyle": "light",

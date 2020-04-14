@@ -65,7 +65,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    console.log("onShowHere")
+    console.log("onShowHere");
+    this.setData({
+      isAdmin: app.globalData.isAdmin
+    })
   },
 
   /**

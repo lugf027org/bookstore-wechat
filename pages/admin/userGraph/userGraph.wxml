@@ -1,14 +1,14 @@
 <!--pages/admin/userGraph/userGraph.wxml-->
 <view class="container_">
   <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler" bindtouchmove="moveHandler" bindtouchend="touchEndHandler"></canvas>
-  <view style="margin-top:30px;text-align:center">拖动图表查看</view>
+  <view style="margin-top:30px;text-align:center">左右拖动图表以查看更多消息+</view>
 </view>
 
 <view>
   <picker class="picker_" bindchange="bindPickerChangeYear" value="{{yearIndex}}" range="{{years}}">
     <button class="weui-btn" type="default">{{years[yearIndex]}}年</button>
   </picker>
-  <picker class="picker_" bindchange="bindPickerChangeMonth" value="{{yearIndex}}" range="{{months}}">
-    <button class="weui-btn" type="default">{{months[yearIndex]}}月</button>
+  <picker class="picker_" bindchange="bindPickerChangeMonth" value="{{monthIndex}}" range="{{months}}">
+    <button class="weui-btn" type="default">{{months[monthIndex]}}月</button>
   </picker>
 </view>

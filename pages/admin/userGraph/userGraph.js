@@ -34,8 +34,13 @@ Page({
   },
 
   onLoad: function(e) {
+    this.getUserData();
+    console.log("onLoad", this.data);
+    this.setLineChart();
+  },
+
+  setLineChart: function(e) {
     var that = this;
-    that.getUserData();
     var windowWidth = 320;
     try {
       var res = wx.getSystemInfoSync();
@@ -53,7 +58,8 @@ Page({
         name: '用户新增注册数',
         data: that.data.userData,
         format: function(val, name) {
-          return val.toFixed(2) + '位';
+          // return val.toFixed(2) + '位';
+          return val + '位'
         }
       }],
       xAxis: {
@@ -62,7 +68,8 @@ Page({
       yAxis: {
         title: '注册数',
         format: function(val) {
-          return val.toFixed(2);
+          // return val.toFixed(2);
+          return val
         },
         min: 0
       },
@@ -82,6 +89,11 @@ Page({
     this.setData({
       yearIndex: e.detail.value
     })
+    this.getUserData();
+    this.setLineChart();
+    // lineChart.categories = this.data.categories;
+    // console.log("series", lineChart.series);
+    // lineChart.series[0].data = this.data.userData;
   },
 
   bindPickerChangeMonth: function(e) {
@@ -89,22 +101,30 @@ Page({
     this.setData({
       monthIndex: e.detail.value
     })
+    this.getUserData();
+    this.setLineChart();
+    // lineChart.categories = this.data.categories;
+    // console.log("series", lineChart.series);
+    // lineChart.series[0].data = this.data.userData;
   },
 
   getUserData: function() {
     var that = this;
     var categories = [];
-    var data = [];
+    var userData = [];
+    var year = this.data.years[this.data.yearIndex];
+    var month = this.data.months[this.data.monthIndex];
 
     for (var i = 0; i < 30; i++) {
-      categories.push(that.data.years[yearIndex] + '-' + that.data.months[monthIndex] + '-' + (i + 1));
-      data.push(Math.random() * (20 - 10) + 10);
+      categories.push(year + '-' + month + '-' + (i + 1));
+      userData.push(Math.ceil(Math.random() * (20 - 10) + 10));
     }
 
     that.setData({
       categories: categories,
-      data: data
+      userData: userData
     })
+    console.log("getUseInfo", that.data);
   }
 
 });
