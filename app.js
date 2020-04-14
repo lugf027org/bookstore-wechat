@@ -1,15 +1,26 @@
 //app.js
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    // var logs = wx.getStorageSync('logs') || []
+    // logs.unshift(Date.now())
+    // wx.setStorageSync('logs', logs)
+    // 获取地址
+    var that = this;
 
+    wx.getLocation({
+      type: 'gcj02',
+      success: function(res) {
+        console.log("wx.login获取到经纬度：", res)
+        that.globalData.location = res
+      },
+    })
     // 登录
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        that.globalData.code = res.code
+        console.log("wx.login获取到code：", res)
       }
     })
     // 获取用户信息
@@ -22,18 +33,30 @@ App({
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
 
+              console.log("wx.getSetting获取信息", this.globalData.userInfo)
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
+                console.log("wx.getSetting返回较慢但即将callback")
                 this.userInfoReadyCallback(res)
+                console.log("wx.getSetting返回较慢已经callback赋值了", res)
               }
             }
           })
+        } else {
+          // 还没有授权过
+          console.log("还没有授权，游客模式启动")
         }
       }
     })
   },
+  
   globalData: {
-    userInfo: null
+    userInfo: null,
+    ifAdmin: false,
+    location,
+    code: "",
+    userId: "",
+    sessionId: ""
   }
 })

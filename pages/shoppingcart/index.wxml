@@ -1,2 +1,19 @@
 <!--pages/shoppongcart/index.wxml-->
-<text>pages/shoppongcart/index.wxml</text>
+
+<!-- 管理员 -->
+<view wx:if="{{isAdmin}}">
+  <view class="weui-cells__title">请选择管理项</view>
+  <view class="weui-cells weui-cells_after-title" wx:for="{{manageList}}" wx:key="key">
+
+    <navigator url="{{item.url}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">{{item.name}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+
+  </view>
+</view>
+
+<!-- 用户 -->
+<view wx:else>
+  <text>pages/shoppongcart/index.wxml</text>
+</view>

@@ -3,7 +3,18 @@
     "pages/homepage/index",
     "pages/classification/index",
     "pages/shoppingcart/index",
-    "pages/mine/index"
+    "pages/mine/index",
+    "pages/admin/userList/userList",
+    "pages/admin/userSearch/userSearch",
+    "pages/admin/userGraph/userGraph",
+    "pages/admin/bookNew/bookNew",
+    "pages/admin/bookSearch/bookSearch",
+    "pages/admin/bookList/bookList",
+    "pages/admin/bookGraph/bookGraph",
+    "pages/admin/orderList/orderList",
+    "pages/admin/orderMoney/orderMoney",
+    "pages/admin/orderSearch/orderSearch",
+    "pages/admin/orderGraph/orderGraph"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -44,5 +55,10 @@
     ]
   },
   "style": "v2",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "小程序将获取您的位置信息"
+    }
+  },
   "sitemapLocation": "sitemap.json"
 }

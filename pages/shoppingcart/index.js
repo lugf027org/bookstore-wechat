@@ -1,11 +1,32 @@
 // pages/shoppongcart/index.js
+const app = getApp();
+const ajax = require("../../utils/myAjax.js")
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    isAdmin: false,
+    // 管理员订单与资金管理
+    manageList: [{
+      "name": "订单查询",
+      "url": "../admin/orderSearch/orderSearch"
+    },
+    {
+      "name": "订单列表",
+      "url": "../admin/orderList/orderList"
+    },
+    {
+      "name": "订单统计",
+      "url": "../admin/orderGraph/orderGraph"
+      },
+      {
+        "name": "资金统计",
+        "url": "../admin/orderMoney/orderMoney"
+      }
+    ]
   },
 
   /**
@@ -26,7 +47,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      isAdmin: app.globalData.isAdmin,
+    })
   },
 
   /**

@@ -1,11 +1,14 @@
 // pages/mine/index.js
+const app = getApp();
+const ajax = require("../../utils/myAjax.js")
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    isAdmin: false,
   },
 
   /**
