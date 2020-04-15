@@ -1,2 +1,255 @@
 <!--pages/admin/bookNew/bookNew.wxml-->
-<text>pages/admin/bookNew/bookNew.wxml</text>
+<view class="weui-cells__title">请依次输入书籍信息:</view>
+<view class="weui-cells__title">基本信息</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">书名</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入书名" />
+    </view>
+  </view>
+
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">总价</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入出版价格" />
+    </view>
+  </view>
+
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">售价</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入出售价格" />
+    </view>
+  </view>
+</view>
+
+<!-- 出版信息 -->
+<view class="weui-cells__title">出版信息</view>
+<view class="weui-cells weui-cells_after-title">
+
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">出版社</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入出版社" />
+    </view>
+  </view>
+
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">ISBN</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入ISBN" />
+    </view>
+  </view>
+
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">印次</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入印次" />
+    </view>
+  </view>
+
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">页数</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入页数" />
+    </view>
+  </view>
+
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">字数</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入字数" />
+    </view>
+  </view>
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">开本</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入开本" />
+    </view>
+  </view>
+
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">纸张</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入纸张类型" />
+    </view>
+  </view>
+
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">包装</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入包装" />
+    </view>
+  </view>
+
+
+  <view class="weui-cell weui-cell_switch">
+    <view class="weui-cell__bd">是否套装</view>
+    <view class="weui-cell__ft">
+      <switch checked />
+    </view>
+  </view>
+
+
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">出版日期</view>
+    </view>
+    <view class="weui-cell__bd">
+      <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+        <view class="weui-input">{{date}}</view>
+      </picker>
+    </view>
+  </view>
+</view>
+
+<!-- <view class="weui-cells__tips">底部说明文字底部说明文字</view> -->
+
+<view class="weui-cells__title">所属类别</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell weui-cell_select">
+    <view class="weui-cell__hd" style="width: 105px">
+      <picker bindchange="bindFatherClassChange" value="{{fatherClassIndex}}" range="{{fatherClasses}}">
+        <view class="weui-select">{{classes[fatherClassIndex].name}}</view>
+      </picker>
+    </view>
+    <view class="weui-cell__hd" style="width: 105px">
+      <picker bindchange="bindClassChange" value="{{classIndex}}" range="{{classes[fatherClassIndex].pages}}">
+        <view class="weui-select">{{classes[fatherClassIndex].pages[classIndex]}}</view>
+      </picker>
+    </view>
+  </view>
+</view>
+
+<!-- 作者 -->
+<view class="weui-cells__title">作者(多人以';'分割):</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell ">
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入文本" />
+    </view>
+  </view>
+</view>
+
+<!-- 基本介绍 -->
+<view class="weui-cells__title">基本介绍</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell">
+    <view class="weui-cell__bd">
+      <textarea class="weui-textarea" placeholder="请输入文本" style="height: 7em" />
+      <view class="weui-textarea-counter">{{introLength}}/140</view>
+    </view>
+  </view>
+</view>
+
+<view class="weui-cell">
+  <view class="weui-cell__bd">
+    <view class="weui-uploader">
+      <view class="weui-uploader__hd">
+        <view class="weui-uploader__overview">
+          <view class="weui-uploader__title">图书预览图</view>
+          <view class="weui-uploader__info">{{preFiles.length}}/1</view>
+        </view>
+        <view class="weui-uploader__tips">
+          图书预览图是展示在商品列表的单图介绍
+        </view>
+      </view>
+      <view class="weui-uploader__bd">
+        <view class="weui-uploader__files" id="uploaderFiles">
+          <block wx:for="{{preFiles}}" wx:key="*this">
+            <view class="weui-uploader__file" bindtap="previewPreImage" id="{{item}}">
+              <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+            </view>
+          </block>
+          <view class="weui-uploader__input-box">
+            <view class="weui-uploader__input" bindtap="choosePreImage"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="weui-cell">
+  <view class="weui-cell__bd">
+    <view class="weui-uploader">
+      <view class="weui-uploader__hd">
+        <view class="weui-uploader__overview">
+          <view class="weui-uploader__title">图书实物图</view>
+          <view class="weui-uploader__info">{{introFiles.length}}/6</view>
+        </view>
+        <view class="weui-uploader__tips">
+          图书介绍图是展示在商品详情页上方的商品实物图
+        </view>
+      </view>
+      <view class="weui-uploader__bd">
+        <view class="weui-uploader__files" id="uploaderFiles">
+          <block wx:for="{{introFiles}}" wx:key="*this">
+            <view class="weui-uploader__file" bindtap="previewIntroImage" id="{{item}}">
+              <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+            </view>
+          </block>
+          <view class="weui-uploader__input-box">
+            <view class="weui-uploader__input" bindtap="chooseIntroImage"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="weui-cell">
+  <view class="weui-cell__bd">
+    <view class="weui-uploader">
+      <view class="weui-uploader__hd">
+        <view class="weui-uploader__overview">
+          <view class="weui-uploader__title">详情介绍图</view>
+          <view class="weui-uploader__info">{{detailFiles.length}}/9</view>
+        </view>
+        <view class="weui-uploader__tips">
+          详情介绍图是商品详情界面下拉后显示的商品介绍
+        </view>
+      </view>
+      <view class="weui-uploader__bd">
+        <view class="weui-uploader__files" id="uploaderFiles">
+          <block wx:for="{{detailFiles}}" wx:key="*this">
+            <view class="weui-uploader__file" bindtap="previewDetailImage" id="{{item}}">
+              <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+            </view>
+          </block>
+          <view class="weui-uploader__input-box">
+            <view class="weui-uploader__input" bindtap="chooseDetailImage"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+<view class="weui-btn-area">
+  <button class="weui-btn" type="primary" bindtap="addBook">确定添加</button>
+</view>

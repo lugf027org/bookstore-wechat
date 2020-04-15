@@ -9,36 +9,12 @@ Page({
    */
   data: {
     list: [{
-        id: 'form',
-        name: '表单',
-        open: false,
-        pages: ['button', 'list', 'slideview', 'input', 'form', 'slider', 'uploader', '新增']
-      },
-      {
-        id: 'widget',
-        name: '基础组件',
-        open: false,
-        pages: ['article', 'badge', 'flex', 'footer', 'gallery', 'grid', 'icons', 'loading', 'loadmore', 'panel', 'preview', 'progress']
-      },
-      {
-        id: 'feedback',
-        name: '操作反馈',
-        open: false,
-        pages: ['actionsheet', 'dialog', 'half-screen-dialog', 'msg', 'picker', 'toast']
-      },
-      {
-        id: 'nav',
-        name: '导航相关',
-        open: false,
-        pages: ['navigation-bar', 'tabbar']
-      },
-      {
-        id: 'search',
-        name: '搜索相关',
-        open: false,
-        pages: ['searchbar']
-      }
-    ]
+      id: 'id',
+      name: 'name',
+      open: false,
+      pages: ['subName', 'subName2'],
+      pagesId: ["1", "2"]
+    }]
   },
 
   /**
@@ -97,13 +73,12 @@ Page({
 
   },
 
-  getBookClass: function(){
+  getBookClass: function() {
     var that = this;
     ajax.requestWithAuth({
       url: '/admin/bookClass/all',
       method: 'POST',
-      data: {
-      },
+      data: {},
       success: res => {
         console.log(res.data);
         that.setData({
@@ -116,7 +91,7 @@ Page({
     })
   },
 
-  newBookClass: function(){
+  newBookClass: function() {
     wx.navigateTo({
       url: '../bookClassNew/bookClassNew',
     })
