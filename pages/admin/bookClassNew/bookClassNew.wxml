@@ -1,0 +1,25 @@
+<!--pages/admin/bookClassNew/bookClassNew.wxml-->
+<toast id="toast" />
+
+<view class="weui-cells__title">添加书籍类别</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">类别名称</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" bindinput="bindClassInput" placeholder="请输入类别名称" />
+    </view>
+  </view>
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">父类名称</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" bindinput="bindFatherInput" placeholder="请输入父类名称，若无为空" />
+    </view>
+  </view>
+  <view class="weui-btn-area">
+    <button class="weui-btn" type="primary" bindtap="bindSendBtn">确定</button>
+  </view>
+</view>

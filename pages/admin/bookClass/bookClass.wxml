@@ -1,0 +1,35 @@
+<!--pages/admin/bookClass/bookClass.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">图书类别</view>
+    <view class="page__desc">图书类别是上架图书商品所属类别，方便用户根据爱好进行索引，以及后台对用户爱好的分析。</view>
+  </view>
+  <view class="page__bd page__bd_spacing">
+    <view class="kind-list">
+      <block wx:for="{{list}}" wx:key="id" wx:for-item="ltemList" wx:key="key">
+        <view class="kind-list__item">
+          <view id="{{ltemList.id}}" class="weui-flex kind-list__item-hd {{ltemList.open ? 'kind-list__item-hd_show' : ''}}" bindtap="kindToggle">
+            <view class="weui-flex__item">{{ltemList.name}}</view>
+            <image class="kind-list__img" src="../../../images/others/add_book.png"></image>
+          </view>
+          <view class="kind-list__item-bd {{ltemList.open ? 'kind-list__item-bd_show' : ''}}">
+            <view class="weui-cells {{ltemList.open ? 'weui-cells_show' : ''}}">
+              <block wx:for="{{ltemList.pages}}" wx:for-item="page" wx:key="*this">
+                <navigator url="../bookSearch/bookSearch?key={{page}}&classify={{ltemList.id}}" class="weui-cell weui-cell_access">
+                  <view class="weui-cell__bd">{{page}}</view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </navigator>
+              </block>
+            </view>
+          </view>
+        </view>
+      </block>
+      <view class="kind-list__item">
+        <view class="weui-flex kind-list__item-hd}}" bindtap="newBookClass">
+          <view class="weui-flex__item">新增类别</view>
+          <image class="kind-list__img" src="../../../images/others/add.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

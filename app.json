@@ -16,7 +16,9 @@
     "pages/admin/orderSearch/orderSearch",
     "pages/admin/orderGraph/orderGraph",
     "pages/user/myAddress/myAddress",
-    "pages/user/myAddressList/myAddressList"
+    "pages/user/myAddressList/myAddressList",
+    "pages/admin/bookClass/bookClass",
+    "pages/admin/bookClassNew/bookClassNew"
   ],
   "window": {
     "backgroundTextStyle": "light",

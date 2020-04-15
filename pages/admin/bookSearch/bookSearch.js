@@ -12,7 +12,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log("searchOnloadOptions", options)
+    // if (options.key === '新增'){
+    //   wx.navigateTo({
+    //     url: '../bookClassNew/bookClassNew?classify=' + options.classify,
+    //   })
+    // }
   },
 
   /**

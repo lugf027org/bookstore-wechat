@@ -19,6 +19,10 @@ Page({
         "url": "../admin/bookList/bookList"
       },
       {
+        "name": "图书类别",
+        "url": "../admin/bookClass/bookClass"
+      },
+      {
         "name": "图书统计",
         "url": "../admin/bookGraph/bookGraph"
       },
