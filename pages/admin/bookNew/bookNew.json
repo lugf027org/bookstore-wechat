@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "添加图书",
-  "usingComponents": {}
+  "usingComponents": {
+    "toast": "../../../components/toast/toast"
+  }
 }

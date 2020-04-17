@@ -1,4 +1,6 @@
 <!--pages/admin/bookNew/bookNew.wxml-->
+<toast id="toast" />
+
 <view class="weui-cells__title">请依次输入书籍信息:</view>
 <view class="weui-cells__title">基本信息</view>
 <view class="weui-cells weui-cells_after-title">
@@ -7,7 +9,7 @@
       <view class="weui-label">书名</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="请输入书名" />
+      <input class="weui-input" bindinput="bindNameInput" placeholder="请输入书名" />
     </view>
   </view>
 
@@ -16,7 +18,7 @@
       <view class="weui-label">总价</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="请输入出版价格" />
+      <input class="weui-input" bindinput="bindPriceTInput" placeholder="请输入出版价格" />
     </view>
   </view>
 
@@ -25,7 +27,7 @@
       <view class="weui-label">售价</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="请输入出售价格" />
+      <input class="weui-input" bindinput="bindPriceNInput" placeholder="请输入出售价格" />
     </view>
   </view>
 </view>
@@ -39,7 +41,7 @@
       <view class="weui-label">出版社</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="请输入出版社" />
+      <input class="weui-input" bindinput="bindPublisherInput" placeholder="请输入出版社" />
     </view>
   </view>
 
@@ -48,7 +50,7 @@
       <view class="weui-label">ISBN</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="请输入ISBN" />
+      <input class="weui-input" bindinput="bindIsbnInput" placeholder="请输入ISBN" />
     </view>
   </view>
 
@@ -57,7 +59,7 @@
       <view class="weui-label">印次</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="请输入印次" />
+      <input class="weui-input" bindinput="bindYinCiInput" placeholder="请输入印次" />
     </view>
   </view>
 
@@ -66,7 +68,7 @@
       <view class="weui-label">页数</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="请输入页数" />
+      <input class="weui-input" bindinput="bindPageTotalInput" placeholder="请输入页数" />
     </view>
   </view>
 
@@ -75,7 +77,7 @@
       <view class="weui-label">字数</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="请输入字数" />
+      <input class="weui-input" bindinput="bindCharacterTotalInput" placeholder="请输入字数" />
     </view>
   </view>
   <view class="weui-cell ">
@@ -83,7 +85,7 @@
       <view class="weui-label">开本</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="请输入开本" />
+      <input class="weui-input" bindinput="bindKaiBenInput" placeholder="请输入开本" />
     </view>
   </view>
 
@@ -92,7 +94,7 @@
       <view class="weui-label">纸张</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="请输入纸张类型" />
+      <input class="weui-input" bindinput="bindPaperTypeInput" placeholder="请输入纸张类型" />
     </view>
   </view>
 
@@ -101,7 +103,7 @@
       <view class="weui-label">包装</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="请输入包装" />
+      <input class="weui-input" bindinput="bindBaoZhuangInput" placeholder="请输入包装" />
     </view>
   </view>
 
@@ -109,7 +111,7 @@
   <view class="weui-cell weui-cell_switch">
     <view class="weui-cell__bd">是否套装</view>
     <view class="weui-cell__ft">
-      <switch checked />
+      <switch bindchange="bindTaoZhuangChange" checked />
     </view>
   </view>
 
@@ -149,7 +151,7 @@
 <view class="weui-cells weui-cells_after-title">
   <view class="weui-cell ">
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="请输入文本" />
+      <input class="weui-input" bindinput="bindAuthorsInput" placeholder="请输入文本" />
     </view>
   </view>
 </view>
@@ -159,7 +161,7 @@
 <view class="weui-cells weui-cells_after-title">
   <view class="weui-cell">
     <view class="weui-cell__bd">
-      <textarea class="weui-textarea" placeholder="请输入文本" style="height: 7em" />
+      <textarea class="weui-textarea" bindinput="bindIntroInput" placeholder="请输入文本" style="height: 7em" />
       <view class="weui-textarea-counter">{{introLength}}/140</view>
     </view>
   </view>
