@@ -1,4 +1,5 @@
-const api = 'http://127.0.0.1:8080/wxWGSJ';
+// const api = 'http://127.0.0.1:8080/bookstore';
+const api = 'http://192.168.1.101:8080/bookstore';
 
 function requestWithAuth(opt) {
   var header = opt.header;
@@ -28,7 +29,7 @@ function requestWithAuth(opt) {
   })
 }
 
-function requestWithoutAuth(req) {
+function requestWithoutAuth(opt) {
   wx.request({
     method: opt.method ? 'POST' : opt.method,
     url: api + opt.url,
@@ -49,10 +50,6 @@ function requestWithoutAuth(req) {
       }
     }
   })
-}
-
-function dealForbid() {
-
 }
 
 module.exports.requestWithAuth = requestWithAuth
