@@ -1,0 +1,138 @@
+<!--pages/admin/bookDetail/bookDetail.wxml-->
+
+<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+  <block wx:for="{{book.introList}}" wx:key="key">
+    <swiper-item>
+      <image src="{{item}}" data-src="{{item}}" bindtap="previewImage" mode="widthFix"></image>
+    </swiper-item>
+  </block>
+</swiper>
+
+<!--商品价格和商品描述-->
+<view>
+  <view class="product-price-wrap">
+    <view>
+      <p class="product-price-new">￥{{book.priceN}}</p>
+      <p class="product-price-old">原价￥{{book.priceT}}</p>
+    </view>
+  </view>
+  <view class="product-name-wrap">{{book.name}}</view>
+  <view class="page__desc" style="font-size: 20rpx;">{{book.intro}}</view>
+</view>
+
+<view class="page__desc">出版信息</view>
+<view class="page__bd page__bd_spacing">
+  <view class="weui-flex">
+    <view>
+      <view class="placeholder" style="width:60px;">作 者</view>
+    </view>
+    <view class="weui-flex__item">
+      <view class="placeholder" style="text-align: left;">{{book.authorList}}</view>
+    </view>
+  </view>
+  <view class="weui-flex">
+    <view>
+      <view class="placeholder" style="width:60px;">出版社</view>
+    </view>
+    <view class="weui-flex__item">
+      <view class="placeholder" style="text-align: left;">{{book.publisher}}</view>
+    </view>
+  </view>
+  <view class="weui-flex">
+    <view>
+      <view class="placeholder" style="width:60px;">ISBN</view>
+    </view>
+    <view class="weui-flex__item">
+      <view class="placeholder" style="text-align: left;">{{book.isbn}}</view>
+    </view>
+  </view>
+  <view class="weui-flex">
+    <view>
+      <view class="placeholder" style="width:60px;">日 期</view>
+    </view>
+    <view class="weui-flex__item">
+      <view class="placeholder" style="text-align: left;">{{book.publishDate}}</view>
+    </view>
+  </view>
+  <view class="weui-flex">
+    <view>
+      <view class="placeholder" style="width:60px;">开 本</view>
+    </view>
+    <view class="weui-flex__item">
+      <view class="placeholder" style="text-align: left;">{{book.kaiBen}}开</view>
+    </view>
+  </view>
+  <view class="weui-flex">
+    <view>
+      <view class="placeholder" style="width:60px;">纸 张</view>
+    </view>
+    <view class="weui-flex__item">
+      <view class="placeholder" style="text-align: left;">{{book.paperType}}</view>
+    </view>
+  </view>
+  <view class="weui-flex">
+    <view>
+      <view class="placeholder" style="width:60px;">包 装</view>
+    </view>
+    <view class="weui-flex__item">
+      <view class="placeholder" style="text-align: left;">{{book.baoZhuang}}</view>
+    </view>
+  </view>
+</view>
+
+<view class="page__desc">图书详情</view>
+<view class="details">
+  <scroll-view scroll-y="true">
+    <block wx:for-items="{{book.detailList}}" wx:key="name">
+      <image class="image_detail" src="{{item}}" mode="widthFix" />
+    </block>
+    <view class="temp"></view>
+  </scroll-view>
+</view>
+
+<!-- 底部悬浮栏 -->
+<view class="detail-nav" wx:if="{{isAdmin === false}}">
+  <image bindtap="toCar" src="../../../images/cart1.png" />
+  <view class="line_nav"></view>
+  <image bindtap="addLike" src="{{isLike?'../../../images/enshrine_select.png':'../../../images/enshrine.png'}}" />
+  <button data-goodid="1" class="button-green" bindtap="toggleDialog">加入购物车</button>
+  <button class="button-red" bindtap="immeBuy" formType="submit">立即购买</button>
+</view>
+
+<!--加入购物车-->
+
+<view class="dialog {{ showDialog ? 'dialog--show' : '' }}">
+
+  <view class="dialog__mask" bindtap="toggleDialog" />
+  <view class="dialog__container">
+    <view class="row">
+      <icon bindtap="closeDialog" class="image-close" type="cancel" size="25" />
+      <image class="image-sku" src="{{book.previewUrl}}"></image>
+      <view class="column">
+        <text class="sku-price">￥{{moneyTotal}}</text>
+        <text class="sku-title">总销量: {{book.salesT}} 件</text>
+        <text class="sku-title">月销量: {{book.salesM}} 件</text>
+        <text class="sku-title">库  存：{{book.stock}} 件</text>
+      </view>
+    </view>
+
+    <text class="border-line"></text>
+    <view class="row">
+      <text>购买数量</text>
+      <view class="quantity-position">
+        <!-- 主容器 -->
+        <view class="stepper">
+          <!-- 减号 -->
+          <text class="sign {{numToBuy <= 1 ? 'disabled' : 'normal'}}" bindtap="delCount">-</text>
+          <!-- 数值 -->
+          <input class="number" type="number" bindchange="bindManual" value="{{numToBuy}}" disabled="disabled" />
+          <!-- 加号 -->
+          <text class="sign {{numToBuy >= book.stock ? 'disabled' : 'normal'}}" bindtap="addCount">+</text>
+        </view>
+      </view>
+    </view>
+    <text class="border-line"></text>
+
+    <button data-goodid="{{book.bookId}}" class="button-addCar" style="  width: 100%;" bindtap="addCar" formType="submit">确定</button>
+  </view>
+</view>

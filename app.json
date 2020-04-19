@@ -18,7 +18,8 @@
     "pages/user/myAddress/myAddress",
     "pages/user/myAddressList/myAddressList",
     "pages/admin/bookClass/bookClass",
-    "pages/admin/bookClassNew/bookClassNew"
+    "pages/admin/bookClassNew/bookClassNew",
+    "pages/admin/bookDetail/bookDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",

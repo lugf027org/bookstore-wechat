@@ -1,23 +1,65 @@
 // pages/admin/bookSearch/bookSearch.js
+const app = getApp()
+const ajax = require("../../../utils/myAjax.js")
+var sectionData = [];
+var ifLoadMore = null;
+var classifyId = null;
+var page = 1; //默认第一页
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    scrollH: 0,
+    imgWidth: 0,
+    loadingCount: 0,
+    images: [],
+    col1: [],
+    col2: [],
+    brandGoods: [],
+    pageRequest: 0,
+    pageSize: 10,
 
+
+    bookList: [{
+      classId: null,
+      discount: "8.9",
+      height: 180,
+      bookId: 11,
+      previewUrl: "https://m.360buyimg.com/n12/jfs/t15760/240/2364180613/156292/ef903739/5aa1f8d5Ndd42acd3.jpg!q70.jpg",
+      name: "朵玺Dr.Douxi赋活新生卵壳膜100g 紧...",
+      priceN: 249,
+      priceT: 280,
+      stock: 0,
+    }]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log("searchOnloadOptions", options)
-    // if (options.key === '新增'){
-    //   wx.navigateTo({
-    //     url: '../bookClassNew/bookClassNew?classify=' + options.classify,
-    //   })
-    // }
+    console.log('serachBookOnLoad:', options);
+    page = 1;
+    ifLoadMore = null;
+    wx.getSystemInfo({
+      success: (res) => {
+        let ww = res.windowWidth;
+        let wh = res.windowHeight;
+        let imgWidth = ww * 0.48;
+        let scrollH = wh;
+
+        this.setData({
+          scrollH: scrollH,
+          imgWidth: imgWidth
+        });
+
+        if (options.classify != null) {
+          this.searchByClassId(options.classify)
+        }
+      }
+    })
   },
 
   /**
@@ -67,5 +109,220 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  searchByClassId: function (classId){
+    var that = this
+    ajax.requestWithAuth({
+      url: '/admin/book/searchByClassId',
+      method: 'POST',
+      data: {
+        classId: classId,
+        pageRequest: that.data.pageRequest,
+        pageSize: that.data.pageSize,
+      },
+      success: res => {
+        console.log("searchByClassId", res.data)
+        if (res.data.bookList.length > 0) {
+          that.setBooks(res.data.bookList);
+        }
+      },
+      fail: err => {
+        console.log(err)
+      }
+    })
+  },
+
+  searchInput: function () {
+    var that = this
+    console.log("searchVal", that.data.inputVal)
+    that.setData({
+      col1: [],
+      col2: [],
+      brandGoods: [],
+    })
+
+    ajax.requestWithAuth({
+      url: '/admin/book/search',
+      method: 'POST',
+      data: {
+        key: that.data.inputVal,
+        pageRequest: that.data.pageRequest,
+        pageSize: that.data.pageSize,
+      },
+      success: res => {
+        console.log("searchInput", res.data)
+        if (res.data.bookList.length > 0){
+          that.setBooks(res.data.bookList);
+        }
+      },
+      fail: err => {
+        console.log(err)
+      }
+    })
+  },
+
+  setBooks: function (bookList) {
+    var that = this;
+    // var newGoodsData = this.data.bookList;
+    var newGoodsData = bookList;
+    page += 1;
+    if (ifLoadMore) {
+      //加载更多
+      if (newGoodsData.length > 0) {
+        console.log(newGoodsData);
+        for (var i in newGoodsData) {
+          //商品名称长度处理
+          var name = newGoodsData[i].name;
+          if (name.length > 26) {
+            newGoodsData[i].name = name.substring(0, 23) + '...';
+          }
+          newGoodsData[i].previewUrl = ajax.api + "/resources" + newGoodsData[i].previewUrl
+        }
+        sectionData['brandGoods'] = newGoodsData;
+      } else {
+        ifLoadMore = false;
+        this.setData({
+          hidden: true
+        })
+
+        wx.showToast({
+          title: '暂无更多内容！',
+          icon: 'loading',
+          duration: 2000
+        })
+      }
+
+    } else {
+      if (ifLoadMore == null) {
+        ifLoadMore = true;
+        for (var i in newGoodsData) {
+          //商品名称长度处理
+          var name = newGoodsData[i].name;
+          if (name.length > 26) {
+            newGoodsData[i].name = name.substring(0, 23) + '...';
+          }
+          newGoodsData[i].previewUrl = ajax.api + "/resources" + newGoodsData[i].previewUrl
+        }
+        sectionData['brandGoods'] = newGoodsData; //刷新
+      } else {
+        sectionData['brandGoods'] = newGoodsData; //刷新
+      }
+    }
+    that.setData({
+      brandGoods: sectionData['brandGoods'],
+      loadingCount: sectionData['brandGoods'].length,
+    });
+    console.log("brandGoodsEnd", that.data.brandGoods);
+    wx.stopPullDownRefresh(); //结束动画
+  },
+
+  // 加载图片
+  onImageLoad: function (e) {
+    console.log("onImgLoad", e);
+    console.log("onImgLoadBooks", this.data.brandGoods);
+
+    let imageId = e.currentTarget.id;
+    let oImgW = e.detail.width; //图片原始宽度
+    let oImgH = e.detail.height; //图片原始高度
+    let imgWidth = this.data.imgWidth; //图片设置的宽度
+    //比例计算
+    let scale = imgWidth / oImgW;
+    let imgHeight = oImgH * scale; //自适应高度
+
+    let images = this.data.brandGoods;
+    let imageObj = null;
+
+    for (let i = 0; i < images.length; i++) {
+      let img = images[i];
+      if (img.bookId + "" === imageId) {
+        imageObj = img;
+        break;
+      }
+    }
+
+    imageObj.height = imgHeight;
+
+    let loadingCount = this.data.loadingCount - 1;
+    let col1 = this.data.col1;
+    let col2 = this.data.col2;
+
+    //判断当前图片添加到左列还是右列
+    if (col1.length <= col2.length) {
+      col1.push(imageObj);
+    } else {
+      col2.push(imageObj);
+    }
+
+    let data = {
+      loadingCount: loadingCount,
+      col1: col1,
+      col2: col2
+    };
+
+    //当前这组图片已加载完毕，则清空图片临时加载区域的内容
+    if (!loadingCount) {
+      data.images = [];
+    }
+
+    this.setData(data);
+    console.log("data", this.data)
+  },
+
+  catchTapCategory: function (e) {
+    var that = this;
+    var bookId = e.currentTarget.dataset.goodsid;
+    console.log('bookId:' + bookId);
+    //新增商品用户点击数量
+    // that.goodsClickShow(goodsId);
+
+    //跳转商品详情
+    wx.navigateTo({
+      url: '../bookDetail/bookDetail?bookId=' + bookId
+    })
+  },
+
+  goodsClickShow(bookId) {
+    console.log('增加商品用户点击数量');
+    var that = this;
+    ajax.requestWithoutAuth({
+      method: 'POST',
+      url: 'book/addGoodsClickRate',
+      data: {
+        bookId: bookId,
+      },
+      success: data => {
+        console.log("goodsClickShow" + data)
+      },
+      fail: err => {
+        console.log("goodsClickShowErr" + err)
+      }
+    })
+  },
+
+  showInput: function () {
+    this.setData({
+      inputShowed: true
+    });
+  },
+
+  hideInput: function () {
+    this.setData({
+      inputVal: "",
+      inputShowed: false
+    });
+  },
+
+  clearInput: function () {
+    this.setData({
+      inputVal: ""
+    });
+  },
+
+  inputTyping: function (e) {
+    this.setData({
+      inputVal: e.detail.value
+    });
   }
+
 })

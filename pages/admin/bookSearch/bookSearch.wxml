@@ -1,2 +1,66 @@
 <!--pages/admin/bookSearch/bookSearch.wxml-->
-<text>pages/admin/bookSearch/bookSearch.wxml</text>
+<view class="page__bd">
+  <view class="weui-search-bar">
+    <view class="weui-search-bar__form">
+      <view class="weui-search-bar__box">
+        <icon class="weui-icon-search_in-box" type="search" size="14" bindtap="searchInput"></icon>
+        <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+        <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+          <icon type="clear" size="14"></icon>
+        </view>
+      </view>
+      <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+        <icon class="weui-icon-search" type="search" size="14"></icon>
+        <view class="weui-search-bar__text">搜索</view>
+      </label>
+    </view>
+    <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="searchInput">查询</view>
+    <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+  </view>
+</view>
+
+<view wx:if="{{brandGoods.length > 0}}">
+  <scroll-view scroll-y="true" style="height:{{scrollH}}px" bindscrolltolower="brandShow">
+
+    <view class="goods" style="width:100%">
+      <view class="img_item">
+        <view wx:for="{{col1}}" wx:key="id">
+          <view class="item_info" catchtap="catchTapCategory" data-goodsid="{{item.bookId}}">
+            <image src="{{item.previewUrl}}" style="width:100%;height:{{item.height}}px"></image>
+          </view>
+          <view class="product-name">
+            {{item.name}}
+          </view>
+          <view class="product-price-wrap">
+            <p class="product-price-new">￥{{item.priceN}}</p>
+            <p class="product-price-old">￥{{item.priceT}}</p>
+            <p class="discount">{{item.charge * 10}}折</p>
+          </view>
+        </view>
+      </view>
+
+      <view class="img_item">
+        <view wx:for="{{col2}}" wx:key="id">
+          <view class="item_info" catchtap="catchTapCategory" data-goodsid="{{item.bookId}}">
+            <image src="{{item.previewUrl}}" style="width:100%;height:{{item.height}}px"></image>
+          </view>
+          <view class="product-name">
+            {{item.name}}
+          </view>
+          <view class="product-price-wrap">
+            <p class="product-price-new">￥{{item.priceN}}</p>
+            <p class="product-price-old">￥{{item.priceT}}</p>
+            <p class="discount">{{item.charge * 10}}折</p>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view style="display:none">
+    <image wx:for="{{brandGoods}}" wx:key="id" id="{{item.bookId}}" src="{{item.previewUrl}}" bindload="onImageLoad"></image>
+  </view>
+</view>
+<view wx:else>
+  什么也没搜到
+</view>

@@ -14,8 +14,8 @@
           </view>
           <view class="kind-list__item-bd {{ltemList.open ? 'kind-list__item-bd_show' : ''}}">
             <view class="weui-cells {{ltemList.open ? 'weui-cells_show' : ''}}">
-              <block wx:for="{{ltemList.pages}}" wx:for-item="page" wx:key="*this">
-                <navigator url="../bookSearch/bookSearch?key={{page}}&classify={{ltemList.id}}" class="weui-cell weui-cell_access">
+              <block wx:for="{{ltemList.pages}}" wx:for-item="page" wx:for-index="j" wx:key="*this">
+                <navigator url="../bookSearch/bookSearch?classify={{ltemList.pagesId[j]}}" class="weui-cell weui-cell_access">
                   <view class="weui-cell__bd">{{page}}</view>
                   <view class="weui-cell__ft weui-cell__ft_in-access"></view>
                 </navigator>
