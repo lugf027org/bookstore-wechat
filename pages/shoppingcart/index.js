@@ -110,8 +110,8 @@ Page({
         if (res.data.carts.length > 0) {
           for (var i = 0; i < res.data.carts.length; i++) {
             res.data.carts[i].isSelect = false;
-            res.data.carts[i].count = 0;
-            res.data.carts[i].priceTotal = (0.0).toFixed(2)
+            res.data.carts[i].count = res.data.carts[i].number;
+            res.data.carts[i].priceTotal = (res.data.carts[i].price * res.data.carts[i].number).toFixed(2)
             res.data.carts[i].name = res.data.carts[i].name.substring(0, 12) + '...'
             res.data.carts[i].previewUrl = ajax.api + "/resources" + res.data.carts[i].previewUrl;
           }
@@ -188,14 +188,31 @@ Page({
 
   // 去结算
   toBuy() {
-    wx.showToast({
-      title: '去结算',
-      icon: 'success',
-      duration: 3000
-    });
-    this.setData({
-      showDialog: !this.data.showDialog
-    });
+    var that = this;
+    for (var i = 0; i < that.data.carts.length; i++) {
+      if (that.data.carts[i].isSelect === true) {
+        ajax.requestWithAuth({
+          url: '/user/order/add',
+          method: 'POST',
+          data: {
+            bookId: that.data.carts[i].bookId,
+            userId: app.globalData.userId,
+            payedMoney: that.data.carts[i].priceTotal,
+          },
+          success: res => {
+            console.log("toBuyRes", res);
+            wx.showToast({
+              title: '购买成功',
+              icon: 'success',
+              duration: 2000
+            });
+          },
+          fail: err => {
+            console.log("toBuyErr", err);
+          }
+        })
+      }
+    }
   },
 
   //数量变化处理
@@ -249,7 +266,6 @@ Page({
       if (this.data.carts[i].isSelect == true) {
         this.data.totalMoney = this.data.totalMoney + (this.data.carts[i].price * this.data.carts[i].count);
       }
-
     }
     var carts = this.data.carts;
     console.log("index & carts", index, carts)

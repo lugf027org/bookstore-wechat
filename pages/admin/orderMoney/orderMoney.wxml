@@ -1,2 +1,11 @@
 <!--pages/admin/orderMoney/orderMoney.wxml-->
-<text>pages/admin/orderMoney/orderMoney.wxml</text>
+
+<!-- 折线区域 -->
+<view class='chart'>
+  <!-- 图形 -->
+  <view class='chart-info'>
+    <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
+  </view>
+  <!-- 折线图统计一年支出收入情况情况 -->
+</view>
+    <button class="weui-btn" type="default">2020年</button>
