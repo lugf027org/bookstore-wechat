@@ -15,5 +15,73 @@
 
 <!-- 用户 -->
 <view wx:else>
-  <text>pages/shoppongcart/index.wxml</text>
+  <view class="J-shopping-cart-empty" hidden="{{iscart}}">
+    <view class="shopping-cart-empty">
+      <view class="bg"></view>
+      <view class="cart"></view>
+      <text class='empty-text'>购物车空空如也</text>
+      <p></p>
+      <navigator url="../admin/bookList/bookList">
+        <a href="" class="button button-primary">
+          去抢购
+        </a>
+      </navigator>
+    </view>
+  </view>
+
+  <view class="scroll" hidden="{{hidden}}">
+    <scroll-view class="scroll" scroll-y="true">
+      <view class="separate"></view>
+      <view wx:for="{{carts}}">
+        <view class="cart_container">
+          <view wx:if="{{!item.isSelect}}">
+            <icon class="item-select" bindtap="switchSelect" data-index="{{index}}" data-id="{{index}}" type="circle" size="20"></icon>
+          </view>
+          <view wx:elif="{{item.isSelect}}">
+            <icon class="item-select" bindtap="switchSelect" data-index="{{index}}" data-id="{{index}}" type="success" color="#f0145a" size="20"></icon>
+          </view>
+
+          <image class="item-image" src="{{item.previewUrl}}"></image>
+          <view class="column">
+            <text class="title">{{item.name}}</text>
+            <image bindtap="delCart" id="img{{index}}" data-index="{{index}}" src="../../images/del.png"></image>
+            <view class="row">
+              <text class="sku-price">￥{{item.priceTotal}}</text>
+              <view class="sku">
+                <!-- 主容器 -->
+                <view class="stepper">
+                  <!-- 减号 -->
+                  <text class="sign {{item.count <= 1 ? 'disabled' : 'normal'}}" data-index="{{index}}" bindtap="delCount">-</text>
+                  <!-- 数值 -->
+                  <input class="number" type="number" bindchange="bindManual" value="{{item.count}}" disabled="disabled" />
+                  <!-- 加号 -->
+                  <text class="sign {{item.count  >= book.stock ? 'disabled' : 'normal'}}" data-index="{{index}}" bindtap="addCount">+</text>
+                </view>
+              </view>
+            </view>
+
+          </view>
+        </view>
+        <view class="separate"></view>
+      </view>
+    </scroll-view>
+  </view>
+  <view class="bottom_total" hidden="{{hidden}}">
+    <view class="bottom_line"></view>
+
+    <view class="row">
+
+      <view wx:if="{{!isAllSelect}}">
+        <icon class="item-allselect" bindtap="allSelect" type="circle" size="20"></icon>
+      </view>
+      <view wx:elif="{{isAllSelect}}">
+        <icon class="item-allselect" bindtap="allSelect" type="success" color="#f0145a" size="20"></icon>
+      </view>
+      <text class="small_text">全选</text>
+      <text>合计:￥ </text>
+      <text class="price">{{totalMoney}}</text>
+      <button class="button-red" bindtap="toBuy" formType="submit">去结算 </button>
+    </view>
+  </view>
+
 </view>
