@@ -148,7 +148,8 @@ Page({
   onShow: function() {
     this.setData({
       isAdmin: app.globalData.isAdmin
-    })
+    });
+    console.log("isAdmin", this.data.isAdmin);
   },
 
   /**
@@ -227,7 +228,7 @@ Page({
   priceCount: function(e) {
     var moneyTotal = this.data.book.priceN * this.data.numToBuy;
     this.setData({
-      moneyTotal: moneyTotal
+      moneyTotal: moneyTotal.toFixed(2)
     })
   },
 

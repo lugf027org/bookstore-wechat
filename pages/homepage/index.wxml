@@ -17,15 +17,58 @@
 
 <!-- 用户 -->
 <view wx:else>
-  <view class="weui-cells__title">shh</view>
-  <view class="weui-cells weui-cells_after-title">
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
+  <!-- banner -->
+  <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" style="height:300rpx;">
+    <block wx:for="{{banners}}">
+      <swiper-item>
+        <image src="{{item.imageUrl}}" style="height:100%;width:100%;" data-goodsid="{{item.id}}" catchtap="show" />
+      </swiper-item>
+    </block>
+  </swiper>
+  <!-- 分类导航 -->
+  <view>
+    <view class="navs">
+      <block wx:for-items="{{menus}}" wx:key="name">
+        <view class="nav-item" data-type="{{item.name}}" data-typeid="{{item.adId}}">
+          <image src="{{item.imageUrl}}" class="nav-image" />
+          <!-- <text>{{item.name}}</text> -->
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="separate"></view>
+
+  <!--福利专场 start-->
+  <view class="welfare-container">
+    <view class="category-title">
+      <view class="weui-cells__title">专业团队，推荐图书</view>
+    </view>
+    <scroll-view scroll-y="true">
+      <view class="welfares">
+        <block wx:for-items="{{books}}" wx:key="id">
+          <view class="welfares-good" catchtap="catchTapCategory" data-name="{{item.name}}" data-bookId="{{item.bookId}}">
+            <view>
+              <image src="{{item.previewUrl}}" class="welfares-image" mode="widthFix" />
+            </view>
+            <view class="product-name">
+              {{item.name}}
+            </view>
+            <view class="product-price-wrap">
+              <p class="product-price-new">￥{{item.priceN}}</p>
+              <p class="product-price-old">￥{{item.priceT}}</p>
+              <p class="discount">{{item.charge * 10}}折</p>
+            </view>
+
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+  <!--福利专场 end-->
+
+  <view class="weui-loadmore" hidden="{{hidden}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">努力加载中</view>
   </view>
 </view>

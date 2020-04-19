@@ -53,7 +53,7 @@ App({
   
   globalData: {
     userInfo: null,
-    ifAdmin: false,
+    isAdmin: false,
     location,
     code: "",
     userId: "",
