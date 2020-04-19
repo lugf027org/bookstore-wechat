@@ -21,17 +21,7 @@ Page({
     date: "2020-04-01",
     introLength: 0,
     fatherClasses: ["name", "name2"],
-    classes: [{
-      id: 'id',
-      name: 'name',
-      pages: ['subName', 'subName2'],
-      pagesId: ["1", "2"]
-    }, {
-      id: 'id2',
-      name: 'name2',
-      pages: ['subName20', 'subName21', 'subName22', 'subName23'],
-      pagesId: ["1", "2", "3", "4"]
-    }],
+    classes: [],
     classIndex: 0,
     fatherClassIndex: 0,
     taoZhuang: "是",

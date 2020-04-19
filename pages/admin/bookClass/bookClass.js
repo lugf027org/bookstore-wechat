@@ -12,8 +12,6 @@ Page({
       id: 'id',
       name: 'name',
       open: false,
-      pages: ['subName', 'subName2'],
-      pagesId: ["1", "2"]
     }]
   },
 

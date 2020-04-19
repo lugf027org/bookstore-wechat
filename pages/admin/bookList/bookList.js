@@ -20,19 +20,7 @@ Page({
     col2: [],
     pageRequest: 0,
     pageSize: 10,
-
-
-    bookList: [{
-      classId: null,
-      discount: "8.9",
-      height: 180,
-      bookId: 11,
-      previewUrl: "https://m.360buyimg.com/n12/jfs/t15760/240/2364180613/156292/ef903739/5aa1f8d5Ndd42acd3.jpg!q70.jpg",
-      name: "朵玺Dr.Douxi赋活新生卵壳膜100g 紧...",
-      priceN: 249,
-      priceT: 280,
-      stock: 0,
-    }]
+    bookList: []
   },
 
   /**

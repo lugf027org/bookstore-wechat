@@ -18,36 +18,7 @@ Page({
     numToBuy: 0,
     moneyTotal: 0,
 
-    book: {
-      bookId: 123,
-      name: "朵玺Dr.Douxi赋活新生卵壳膜100g 紧致毛孔 锁水保湿 白色",
-      intro: "共360个成语故事。内文全部加注音，妙趣横生的成语故事；图文并茂的呈现形式；详尽的释义与出处说明；开发智力、拓展词汇量。特别加入成语接龙游戏",
-      priceN: 249,
-      priceT: 280,
-      charge: "8.9",
-      stock: 15,
-
-      salesT: 578,
-      salesM: 23,
-
-      previewUrl: "https://m.360buyimg.com/n12/jfs/t15760/240/2364180613/156292/ef903739/5aa1f8d5Ndd42acd3.jpg!q70.jpg",
-      introList: [
-        "https://img10.360buyimg.com/imgzone/jfs/t15274/79/2422919843/349134/17bcd260/5a9e880fNff929e75.jpg",
-        "https://img10.360buyimg.com/imgzone/jfs/t17044/228/668258528/204068/838bea39/5a9e880fNaea3579d.jpg",
-        "https://img10.360buyimg.com/imgzone/jfs/t18841/260/639063252/306396/137e665f/5a9e8810N06aedfa4.jpg",
-        "https://img10.360buyimg.com/imgzone/jfs/t19258/148/662223497/297520/28ff243a/5a9e8810Nf2f538c2.jpg",
-        "https://img10.360buyimg.com/imgzone/jfs/t19453/254/653770633/308718/77c99727/5a9e8811Nc19aac86.jpg;",
-        "https://img10.360buyimg.com/imgzone/jfs/t15340/267/2439419638/355328/e0b26f3f/5a9e8811Na42a7292.jpg"
-      ],
-      detailList: [
-        "https://m.360buyimg.com/n12/jfs/t15760/240/2364180613/156292/ef903739/5aa1f8d5Ndd42acd3.jpg!q70.jpg;",
-        "https://m.360buyimg.com/n12/jfs/t16735/365/798991195/114913/a848902f/5aa91508N7af5e1e0.jpg!q70.jpg;",
-        "https://m.360buyimg.com/n12/jfs/t15526/221/2478166606/101122/3c868736/5aa91508Nf6c8342c.jpg!q70.jpg;",
-        "https://m.360buyimg.com/n12/jfs/t17386/204/804389544/111193/9e032db/5aa91508N6823e2be.jpg!q70.jpg;",
-        "https://m.360buyimg.com/n12/jfs/t14494/208/2545278027/128306/d2a0be37/5aa91508N4dbb8741.jpg!q70.jpg;",
-        "https://m.360buyimg.com/n12/jfs/t15007/221/2573118534/202338/cd94e7e8/5aa91508N00af7315.jpg!q70.jpg",
-      ],
-    }
+    book: null,
   },
 
   //预览图片
@@ -64,18 +35,6 @@ Page({
     this.setData({
       isLike: !this.data.isLike
     });
-    // ajax.request({
-    //   method: 'GET',
-    //   url: 'book/addCollection?bookId=' + bookId,
-    //   success: data => {
-    //     console.log("收藏返回结果：" + adta)
-    //     wx.showToast({
-    //       title: data.message,
-    //       icon: 'success',
-    //       duration: 2000
-    //     });
-    //   }
-    // })
   },
 
   // 跳到购物车
@@ -87,11 +46,33 @@ Page({
 
   // 立即购买
   immeBuy() {
-    wx.showToast({
-      title: '购买成功',
-      icon: 'success',
-      duration: 2000
-    });
+    var that = this;
+    ajax.requestWithAuth({
+      url: '/user/order/add',
+      method: 'POST',
+      data: {
+        bookId: that.data.book.bookId,
+        userId: app.globalData.userId,
+        payedMoney: that.data.book.priceN,
+      },
+      success: res => {
+        console.log("immeBuyRes", res);
+        wx.showToast({
+          title: '购买成功',
+          icon: 'success',
+          duration: 2000
+        });
+        wx.navigateBack({
+          delta: 1
+        })
+      },
+      fail: err => {
+        console.log("immeBuy", err);
+        wx.navigateBack({
+          delta: 1
+        })
+      }
+    })
   },
 
   /**
@@ -103,7 +84,7 @@ Page({
     this.getBook(options.bookId);
   },
 
-  getBook: function (bookId) {
+  getBook: function(bookId) {
     var that = this;
     ajax.requestWithAuth({
       url: '/admin/book/detail',
@@ -119,7 +100,7 @@ Page({
         res.data.book.authorList = res.data.book.authorList.join(";");
         // imgUrl
         res.data.book.previewUrl = ajax.api + "/resources" + res.data.book.previewUrl;
-        for(var i=0; i<res.data.book.introList.length; i++){
+        for (var i = 0; i < res.data.book.introList.length; i++) {
           res.data.book.introList[i] = ajax.api + "/resources" + res.data.book.introList[i];
         }
         for (var i = 0; i < res.data.book.detailList.length; i++) {
